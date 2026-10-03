@@ -30,7 +30,7 @@ export type CreativeWork = {
 };
 
 export const fallbackCreativeWorks: CreativeWork[] = [
-  { number: '01', type: 'Short story / Entry point', title: 'Atlantis Regensis', description: 'The first transmission. A submerged beginning for a story that refuses to stay in one world.', action: 'Read the short story', href: '#atlantis', status: 'Available now', theme: 'water' },
+  { number: '01', type: 'Short story / Entry point', title: 'Atlantis Regenesis', description: 'The first transmission. A submerged beginning for a story that refuses to stay in one world.', action: 'Read the short story', href: '#atlantis', status: 'Available now', theme: 'water' },
   { number: '02', type: 'Novel / Book one', title: 'The Quadrabrid: End Simulation', description: 'Four realities. One recursive system. The first book of The Transcendent Recursion.', action: 'Enter the waitlist', href: '#quadrabrid', status: 'Coming soon', theme: 'signal' },
   { number: '03', type: 'Soundtrack / Original score', title: 'The Soundtrack', description: 'An audio layer for the multiverse: atmosphere, memory, and the sound of a simulation losing coherence.', action: 'Listen to the soundtrack', href: '#soundtrack', status: 'Listen soon', theme: 'sound' },
   { number: '04', type: 'Theory / Physics of the book', title: 'Multi Modal Unified Recursive Multiverse', description: 'A technical companion to the fiction. The physics, architecture, and recursive logic beneath the worlds.', action: 'View the framework', href: '#mmurm', status: 'Coming soon', theme: 'grid' },
