@@ -27,6 +27,7 @@ export type CreativeWork = {
   href: string;
   status: string;
   theme: string;
+  cover?: string;
 };
 
 export const fallbackCreativeWorks: CreativeWork[] = [
@@ -35,7 +36,9 @@ export const fallbackCreativeWorks: CreativeWork[] = [
   { number: '03', type: 'Soundtrack / Original score', title: 'The Soundtrack', description: 'An audio layer for the multiverse: atmosphere, memory, and the sound of a simulation losing coherence.', action: 'Listen to the soundtrack', href: '#soundtrack', status: 'Listen soon', theme: 'sound' },
   { number: '04', type: 'Theory / Physics of the book', title: 'Multi Modal Unified Recursive Multiverse', description: 'A technical companion to the fiction. The physics, architecture, and recursive logic beneath the worlds.', action: 'View the framework', href: '#mmurm', status: 'Coming soon', theme: 'grid' },
   { number: '05', type: 'Manifesto / A declaration', title: 'The Technological Sovereignty Manifesto', description: 'A challenge to build tools that return agency to the people who use them.', action: 'Read the manifesto', href: '#manifesto', status: 'Coming soon', theme: 'orange' },
-  { number: '06', type: 'Book / A practical intervention', title: 'The AZ-X-AZ Hieromorphic Exegesis', description: 'The source material of the series: channelings, transmissions, and otherworldly voices.', action: 'Register your interest', href: '#fix-yourself', status: 'Coming soon', theme: 'violet' }
+  { number: '06', type: 'Book / A practical intervention', title: 'The AZ-X-AZ Hieromorphic Exegesis', description: 'The source material of the series: channelings, transmissions, and otherworldly voices.', action: 'Register your interest', href: '#fix-yourself', status: 'Coming soon', theme: 'violet' },
+  { number: '07', type: 'Book / Physics philosophy', title: 'Phase Recursion Ontology', description: 'A physics-first philosophy on the shoulders of giants — reality as recursively evolving phase states, across nine chapters.', action: 'Get the book', href: '#phase-recursion-ontology', status: 'Available now', theme: 'grid', cover: '/covers/phase-recursion-ontology.png' }
+  
 ];
 
 const creativeWorksQuery = `
