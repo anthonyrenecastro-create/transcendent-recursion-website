@@ -36,25 +36,19 @@ export const fallbackCreativeWorks: CreativeWork[] = [
   { number: '03', type: 'Soundtrack / Original score', title: 'The Soundtrack', description: 'An audio layer for the multiverse: atmosphere, memory, and the sound of a simulation losing coherence.', action: 'Listen to the soundtrack', href: '#soundtrack', status: 'Listen soon', theme: 'sound' },
   { number: '04', type: 'Theory / Physics of the book', title: 'Multi Modal Unified Recursive Multiverse', description: 'A technical companion to the fiction. The physics, architecture, and recursive logic beneath the worlds.', action: 'View the framework', href: '#mmurm', status: 'Coming soon', theme: 'grid' },
   { number: '05', type: 'Manifesto / A declaration', title: 'The Technological Sovereignty Manifesto', description: 'A challenge to build tools that return agency to the people who use them.', action: 'Read the manifesto', href: '#manifesto', status: 'Coming soon', theme: 'orange' },
-  { number: '06', type: 'Book / A practical intervention', title: 'The AZ-X-AZ Hieromorphic Exegesis', description: 'The source material of the series: channelings, transmissions, and otherworldly voices.', action: 'Buy the book — $6.99', href: 'https://vercel-store-36fdd2b4-epzbepqg.myshopify.com/products/azxaz-hiermorphic-exegesis', status: 'Digital book', theme: 'violet', cover: '/covers/azxaz-hieromorphic-exegesis.png' },
-  { number: '07', type: 'Book / Physics philosophy', title: 'Phase Recursion Ontology', description: 'A physics-first philosophy on the shoulders of giants — reality as recursively evolving phase states, across nine chapters.', action: 'Buy the book — $6.99', href: 'https://vercel-store-36fdd2b4-epzbepqg.myshopify.com/products/phase-recursion-ontology-v1-0', status: 'Digital book', theme: 'grid', cover: '/covers/phase-recursion-ontology.png' }
+  { number: '06', type: 'Book / A practical intervention', title: 'The AZ-X-AZ Hieromorphic Exegesis', description: 'The source material of the series: channelings, transmissions, and otherworldly voices.', action: 'Buy the book — $6.99', href: '/edition/azxaz', status: 'Digital book', theme: 'violet', cover: '/covers/azxaz-hieromorphic-exegesis.png' },
+  { number: '07', type: 'Book / Physics philosophy', title: 'Phase Recursion Ontology', description: 'A physics-first philosophy on the shoulders of giants — reality as recursively evolving phase states, across nine chapters.', action: 'Buy the book — $6.99', href: '/edition/phase', status: 'Digital book', theme: 'grid', cover: '/covers/phase-recursion-ontology.png' }
   
 ];
 
 
 function connectBookPurchase(work: CreativeWork): CreativeWork {
-  const title = work.title.toLowerCase().replace(/[^a-z0-9]/g, '').replace(/^the/, '');
-  const book = fallbackCreativeWorks.find((candidate) =>
-    candidate.cover && candidate.title.toLowerCase().replace(/[^a-z0-9]/g, '').replace(/^the/, '') === title
-  );
+  // The published Shopify creative_work links may point to unrelated newsletter content.
+  // Route both book records to their dedicated editorial purchase pages, by archive number.
+  const book = work.number === '06' ? fallbackCreativeWorks[5] :
+               work.number === '07' ? fallbackCreativeWorks[6] : undefined;
   if (!book) return work;
-  // Keep explicit Shopify/editor links; replace only missing or placeholder anchors.
-  const needsPurchaseLink = !work.href || work.href.startsWith('#');
-  return {
-    ...work,
-    cover: work.cover || book.cover,
-    ...(needsPurchaseLink ? { href: book.href, action: book.action, status: book.status } : {})
-  };
+  return { ...work, cover: book.cover, href: book.href, action: book.action, status: book.status };
 }
 
 const creativeWorksQuery = `
