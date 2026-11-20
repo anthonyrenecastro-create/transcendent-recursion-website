@@ -20,7 +20,7 @@ const books: Record<string, { title: string; subtitle: string; description: stri
     subtitle: 'THE ARCHIVE / DIGITAL EDITION 03',
     description: 'A guide to prompt engineering — ten chapters on turning a request into a working prompt, from the foundations of AI to advanced techniques and the future of human–AI collaboration.',
     cover: '/covers/become-the-engineer.png',
-    url: '',
+    url: 'https://vercel-store-36fdd2b4-epzbepqg.myshopify.com/products/become-the-engineer',
   },
 };
 
