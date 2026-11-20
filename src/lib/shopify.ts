@@ -37,16 +37,18 @@ export const fallbackCreativeWorks: CreativeWork[] = [
   { number: '04', type: 'Theory / Physics of the book', title: 'Multi Modal Unified Recursive Multiverse', description: 'A technical companion to the fiction. The physics, architecture, and recursive logic beneath the worlds.', action: 'View the papers on Zenodo', href: 'https://zenodo.org/records/23236616', status: 'Coming soon', theme: 'grid', cover: '/covers/mmurm.png' },
   { number: '05', type: 'Manifesto / A declaration', title: 'The Technological Sovereignty Manifesto', description: 'A challenge to build tools that return agency to the people who use them.', action: 'Read the manifesto', href: '#manifesto', status: 'Coming soon', theme: 'orange' },
   { number: '06', type: 'Book / A practical intervention', title: 'The AZ-X-AZ Hieromorphic Exegesis', description: 'The source material of the series: channelings, transmissions, and otherworldly voices.', action: 'Buy the book — $6.99', href: '/edition/azxaz', status: 'Digital book', theme: 'violet', cover: '/covers/azxaz-hieromorphic-exegesis.png' },
-  { number: '07', type: 'Book / Physics philosophy', title: 'Phase Recursion Ontology', description: 'A physics-first philosophy on the shoulders of giants — reality as recursively evolving phase states, across nine chapters.', action: 'Buy the book — $6.99', href: '/edition/phase', status: 'Digital book', theme: 'grid', cover: '/covers/phase-recursion-ontology.png' }
+  { number: '07', type: 'Book / Physics philosophy', title: 'Phase Recursion Ontology', description: 'A physics-first philosophy on the shoulders of giants — reality as recursively evolving phase states, across nine chapters.', action: 'Buy the book — $6.99', href: '/edition/phase', status: 'Digital book', theme: 'grid', cover: '/covers/phase-recursion-ontology.png' },
+  { number: '08', type: 'Book / A practical guide', title: 'Become the Engineer', description: 'A guide to prompt engineering — ten chapters on turning a request into a working prompt, from the foundations of AI to advanced techniques and the future of human–AI collaboration.', action: 'Buy the book — $6.99', href: '/edition/become-the-engineer', status: 'Digital book', theme: 'grid', cover: '/covers/become-the-engineer.png' }
   
 ];
 
 
 function connectBookPurchase(work: CreativeWork): CreativeWork {
   // The published Shopify creative_work links may point to unrelated newsletter content.
-  // Route both book records to their dedicated editorial purchase pages, by archive number.
+  // Route all three book records to their dedicated editorial purchase pages, by archive number.
   const book = work.number === '06' ? fallbackCreativeWorks[5] :
-               work.number === '07' ? fallbackCreativeWorks[6] : undefined;
+               work.number === '07' ? fallbackCreativeWorks[6] :
+               work.number === '08' ? fallbackCreativeWorks[7] : undefined;
   if (!book) return work;
   return { ...work, cover: book.cover, href: book.href, action: book.action, status: book.status };
 }
@@ -133,7 +135,13 @@ export async function getCreativeWorks(): Promise<CreativeWork[]> {
     .map(connectBookPurchase)
     .map(connectMmurnCard);
 
-  return works.length > 0 ? sortCreativeWorks(works) : sortCreativeWorks(fallbackCreativeWorks);
+  if (works.length === 0) return sortCreativeWorks(fallbackCreativeWorks);
+
+  // Fallback entries Shopify doesn't return (e.g. a new book awaiting its
+  // metaobject) are appended, so code-defined works still appear.
+  const seen = new Set(works.map((work) => work.number));
+  const missing = fallbackCreativeWorks.filter((work) => !seen.has(work.number));
+  return sortCreativeWorks([...works, ...missing]);
 }
 
 // ---------------------------------------------------------------------------

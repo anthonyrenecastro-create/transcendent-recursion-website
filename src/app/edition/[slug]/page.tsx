@@ -15,6 +15,13 @@ const books: Record<string, { title: string; subtitle: string; description: stri
     cover: '/covers/phase-recursion-ontology.png',
     url: 'https://vercel-store-36fdd2b4-epzbepqg.myshopify.com/products/phase-recursion-ontology-v1-0',
   },
+  'become-the-engineer': {
+    title: 'Become the Engineer',
+    subtitle: 'THE ARCHIVE / DIGITAL EDITION 03',
+    description: 'A guide to prompt engineering — ten chapters on turning a request into a working prompt, from the foundations of AI to advanced techniques and the future of human–AI collaboration.',
+    cover: '/covers/become-the-engineer.png',
+    url: '',
+  },
 };
 
 export default async function Edition({ params }: { params: Promise<{ slug: string }> }) {
@@ -38,8 +45,12 @@ export default async function Edition({ params }: { params: Promise<{ slug: stri
           <span style={{ color: '#c8c0d7', fontSize: 13 }}>Digital download · DOCX</span>
           <strong style={{ fontSize: 30 }}>$6.99</strong>
         </div>
-        <a href={book.url} style={{ display: 'block', padding: '19px 24px', background: '#7950d7', color: '#fff', textAlign: 'center', fontWeight: 700, letterSpacing: 1, textDecoration: 'none', borderRadius: 5 }}>CONTINUE TO SHOPIFY PURCHASE ↗</a>
-        <p style={{ color: '#a8a0b7', fontSize: 12, textAlign: 'center', marginTop: 18 }}>Secure payment handled by Shopify · Digital file delivered after purchase</p>
+        {book.url ? (
+          <a href={book.url} style={{ display: 'block', padding: '19px 24px', background: '#7950d7', color: '#fff', textAlign: 'center', fontWeight: 700, letterSpacing: 1, textDecoration: 'none', borderRadius: 5 }}>CONTINUE TO SHOPIFY PURCHASE ↗</a>
+        ) : (
+          <div style={{ padding: '19px 24px', background: '#171429', color: '#bcb6ca', textAlign: 'center', fontWeight: 700, letterSpacing: 1, borderRadius: 5, border: '1px solid #46375e' }}>SHOPIFY PURCHASE LINK COMING SOON</div>
+        )}
+        <p style={{ color: '#a8a0b7', fontSize: 12, textAlign: 'center', marginTop: 18 }}>{book.url ? 'Secure payment handled by Shopify · Digital file delivered after purchase' : 'The purchase link will appear here once the Shopify product is live.'}</p>
       </div>
     </section>
     <footer style={{ marginTop: 120, borderTop: '1px solid #363049', paddingTop: 28, color: '#978ca9', fontSize: 11, letterSpacing: 2 }}>THE TRANSCENDENT RECURSION / ALL SYSTEMS ARE STORIES</footer>
