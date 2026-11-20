@@ -35,7 +35,7 @@ export const fallbackCreativeWorks: CreativeWork[] = [
   { number: '02', type: 'Novel / Book one', title: 'The Quadrabrid: End Simulation', description: 'Four realities. One recursive system. The first book of The Transcendent Recursion.', action: 'Enter the waitlist', href: '#quadrabrid', status: 'Coming soon', theme: 'signal' },
   { number: '03', type: 'Soundtrack / Original score', title: 'The Soundtrack', description: 'An audio layer for the multiverse: atmosphere, memory, and the sound of a simulation losing coherence.', action: 'Listen to the soundtrack', href: '#soundtrack', status: 'Listen soon', theme: 'sound' },
   { number: '04', type: 'Theory / Physics of the book', title: 'Multi Modal Unified Recursive Multiverse', description: 'A technical companion to the fiction. The physics, architecture, and recursive logic beneath the worlds.', action: 'View the papers on Zenodo', href: 'https://zenodo.org/records/23236616', status: 'Coming soon', theme: 'grid', cover: '/covers/mmurm.png' },
-  { number: '05', type: 'Manifesto / A declaration', title: 'The Technological Sovereignty Manifesto', description: 'A challenge to build tools that return agency to the people who use them.', action: 'Read the manifesto', href: '#manifesto', status: 'Coming soon', theme: 'orange' },
+  { number: '05', type: 'Book / A declaration', title: 'The Technological Sovereignty Manifesto', description: 'A challenge to build tools that return agency to the people who use them.', action: 'Buy the book — $6.99', href: '/edition/manifesto', status: 'Digital book', theme: 'orange', cover: '/covers/technological-sovereignty-manifesto.png' },
   { number: '06', type: 'Book / A practical intervention', title: 'The AZ-X-AZ Hieromorphic Exegesis', description: 'The source material of the series: channelings, transmissions, and otherworldly voices.', action: 'Buy the book — $6.99', href: '/edition/azxaz', status: 'Digital book', theme: 'violet', cover: '/covers/azxaz-hieromorphic-exegesis.png' },
   { number: '07', type: 'Book / Physics philosophy', title: 'Phase Recursion Ontology', description: 'A physics-first philosophy on the shoulders of giants — reality as recursively evolving phase states, across nine chapters.', action: 'Buy the book — $6.99', href: '/edition/phase', status: 'Digital book', theme: 'grid', cover: '/covers/phase-recursion-ontology.png' },
   { number: '08', type: 'Book / A practical guide', title: 'Become the Engineer', description: 'A guide to prompt engineering — ten chapters on turning a request into a working prompt, from the foundations of AI to advanced techniques and the future of human–AI collaboration.', action: 'Buy the book — $6.99', href: '/edition/become-the-engineer', status: 'Digital book', theme: 'grid', cover: '/covers/become-the-engineer.png' }
@@ -45,8 +45,9 @@ export const fallbackCreativeWorks: CreativeWork[] = [
 
 function connectBookPurchase(work: CreativeWork): CreativeWork {
   // The published Shopify creative_work links may point to unrelated newsletter content.
-  // Route all three book records to their dedicated editorial purchase pages, by archive number.
-  const book = work.number === '06' ? fallbackCreativeWorks[5] :
+  // Route all four book records to their dedicated editorial purchase pages, by archive number.
+  const book = work.number === '05' ? fallbackCreativeWorks[4] :
+               work.number === '06' ? fallbackCreativeWorks[5] :
                work.number === '07' ? fallbackCreativeWorks[6] :
                work.number === '08' ? fallbackCreativeWorks[7] : undefined;
   if (!book) return work;

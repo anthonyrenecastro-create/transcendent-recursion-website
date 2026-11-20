@@ -22,6 +22,13 @@ const books: Record<string, { title: string; subtitle: string; description: stri
     cover: '/covers/become-the-engineer.png',
     url: 'https://vercel-store-36fdd2b4-epzbepqg.myshopify.com/products/become-the-engineer',
   },
+  manifesto: {
+    title: 'The Technological Sovereignty Manifesto',
+    subtitle: 'THE ARCHIVE / DIGITAL EDITION 04',
+    description: 'A challenge to build tools that return agency to the people who use them.',
+    cover: '/covers/technological-sovereignty-manifesto.png',
+    url: '',
+  },
 };
 
 export default async function Edition({ params }: { params: Promise<{ slug: string }> }) {
