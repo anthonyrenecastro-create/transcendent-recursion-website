@@ -27,7 +27,7 @@ const books: Record<string, { title: string; subtitle: string; description: stri
     subtitle: 'THE ARCHIVE / DIGITAL EDITION 04',
     description: 'A challenge to build tools that return agency to the people who use them.',
     cover: '/covers/technological-sovereignty-manifesto.png',
-    url: '',
+    url: 'https://vercel-store-36fdd2b4-epzbepqg.myshopify.com/products/the-technological-sovereignty-manifesto',
   },
 };
 
