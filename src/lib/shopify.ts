@@ -51,6 +51,19 @@ function connectBookPurchase(work: CreativeWork): CreativeWork {
   return { ...work, cover: book.cover, href: book.href, action: book.action, status: book.status };
 }
 
+// The two published books (archive numbers 06 and 07) lead the archive;
+// everything else follows in archive-number order.
+const PUBLISHED_BOOK_NUMBERS = new Set(['06', '07']);
+
+function sortCreativeWorks(works: CreativeWork[]): CreativeWork[] {
+  return [...works].sort((first, second) => {
+    const firstRank = PUBLISHED_BOOK_NUMBERS.has(first.number) ? 0 : 1;
+    const secondRank = PUBLISHED_BOOK_NUMBERS.has(second.number) ? 0 : 1;
+    if (firstRank !== secondRank) return firstRank - secondRank;
+    return first.number.localeCompare(second.number, undefined, { numeric: true });
+  });
+}
+
 const creativeWorksQuery = `
   query CreativeWorks {
     metaobjects(type: "creative_work", first: 20) {
@@ -75,7 +88,7 @@ export async function getCreativeWorks(): Promise<CreativeWork[]> {
   const token = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN;
 
   if (!domain || !token) {
-    return fallbackCreativeWorks;
+    return sortCreativeWorks(fallbackCreativeWorks);
   }
 
   const apiVersion = process.env.SHOPIFY_API_VERSION || '2026-07';
@@ -110,10 +123,9 @@ export async function getCreativeWorks(): Promise<CreativeWork[]> {
       status: getField(node.fields, 'status', 'Coming soon'),
       theme: getField(node.fields, 'theme', 'signal')
     }))
-    .map(connectBookPurchase)
-    .sort((first, second) => first.number.localeCompare(second.number, undefined, { numeric: true }));
+    .map(connectBookPurchase);
 
-  return works.length > 0 ? works : fallbackCreativeWorks;
+  return works.length > 0 ? sortCreativeWorks(works) : sortCreativeWorks(fallbackCreativeWorks);
 }
 
 // ---------------------------------------------------------------------------
